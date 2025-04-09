@@ -1,14 +1,18 @@
 import logging  # Импортируем модуль logging для записи информации о работе программы в лог
 import re  # Импортируем модуль re для работы с регулярными выражениями
+import os  # Импортируем модуль os для работы с переменными окружения
 from telegram import Update  # Импортируем класс Update из библиотеки telegram для обработки входящих обновлений от Telegram
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, CallbackContext  # Импортируем необходимые классы из telegram.ext для создания Telegram бота
 from openai import OpenAI  # Импортируем класс OpenAI из библиотеки openai для взаимодействия с OpenAI API
-import openai  # Еще раз импортируем openai (возможно, избыточно)
 import telegram  # Импортируем модуль telegram для работы с Telegram API
+from dotenv import load_dotenv  # Импортируем функцию load_dotenv из библиотеки python-dotenv
+
+# Загружаем переменные окружения из файла .env
+load_dotenv()
 
 # Конфигурация
-BOT_TOKEN = '7697618555:AAGB4ZEbgO3c80MdFIyLQzCcDxqZw6gsgx4'  # Токен Telegram бота, полученный от BotFather
-API_KEY = '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'  # API ключ для доступа к OpenAI API
+BOT_TOKEN = os.environ.get("BOT_TOKEN")  # Токен Telegram бота, полученный от BotFather. Получаем из переменной окружения
+API_KEY = os.environ.get("API_KEY")  # API ключ для доступа к OpenAI API. Получаем из переменной окружения
 
 # Проверка токенов
 if not BOT_TOKEN:  # Проверяем, установлен ли BOT_TOKEN

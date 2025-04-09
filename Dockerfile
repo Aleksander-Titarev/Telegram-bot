@@ -1,15 +1,16 @@
-FROM python:3.9-slim-buster
+FROM python:3.13-slim
 
+# Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
 
-ENV BOT_TOKEN=7697618555:AAGB4ZEbgO3c80MdFIyLQzCcDxqZw6gsgx4
-ENV API_KEY=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
-
-# Копирование файлов проекта
+# Копируем файл с зависимостями
 COPY requirements.txt .
+
+# Устанавливаем необходимые библиотеки
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Копируем исходный код приложения в контейнер
 COPY . .
 
-# Запуск вашего приложения
+# Указываем команду для запуска приложения. Используем `env` для подстановки переменных окружения (опционально, но полезно для дебага)
 CMD ["python", "AITelegramBot.py"]
-
